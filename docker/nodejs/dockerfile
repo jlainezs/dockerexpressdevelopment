@@ -4,4 +4,3 @@ FROM node:${NODE_VERSION}
 WORKDIR /home/app
 
 RUN apt update && apt upgrade -y
-RUN npm install -g @nestjs/cli

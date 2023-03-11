@@ -1,52 +1,52 @@
 version: '3.8'
 
 services:
-  nest01:
-    container_name: nest01
-    env_file: ./docker/env/nest01.env
+  expr01:
+    container_name: expr01
+    env_file: ./docker/env/expr01.env
     environment:
       # this is needed in the init.sh script
-      - APP_NAME=${APP_NAME_NEST01}
-      - APP_PORT=${LOCAL_APP_PORT_NEST01}
+      - APP_NAME=${APP_NAME_EXPR01}
+      - APP_PORT=${LOCAL_APP_PORT_EXPR01}
     build:
       context: .
       args:
         # used in the dockerfile
-        - APP_NAME=${APP_NAME_NEST01}
-        - NODE_VERSION=${NODE_VERSION_NEST01}
+        - APP_NAME=${APP_NAME_EXPR01}
+        - NODE_VERSION=${NODE_VERSION_EXPR01}
       dockerfile: ./docker/nodejs/dockerfile
     command: bash -c "sh /home/init.sh"
     ports:
-      - "${APP_PORT_NEST01}:${LOCAL_APP_PORT_NEST01}"
+      - "${LOCAL_APP_PORT_EXPR01}:${APP_PORT_EXPR01}"
     volumes:
-      - ./app/${APP_NAME_NEST01}:/home/app/${APP_NAME_NEST01}
+      - ./app/${APP_NAME_EXPR01}:/home/app/${APP_NAME_EXPR01}
       - ./docker/nodejs/init.sh:/home/init.sh
     networks:
-      - nestjsnetwork
+      - exprjsnetwork
 
-  nest02:
-    container_name: nest02
-    env_file: ./docker/env/nest02.env
+  expr02:
+    container_name: expr02
+    env_file: ./docker/env/expr02.env
     environment:
-      - APP_NAME=${APP_NAME_NEST02}
-      - APP_PORT=${LOCAL_APP_PORT_NEST02}
+      - APP_NAME=${APP_NAME_EXPR02}
+      - APP_PORT=${LOCAL_APP_PORT_EXPR02}
     build:
       context: .
       args:
-        - APP_NAME=${APP_NAME_NEST02}
-        - NODE_VERSION=${NODE_VERSION_NEST02}
+        - APP_NAME=${APP_NAME_EXPR02}
+        - NODE_VERSION=${NODE_VERSION_EXPR02}
       dockerfile: ./docker/nodejs/dockerfile
     command: bash -c "sh /home/init.sh"
     ports:
-      - "${APP_PORT_NEST02}:${LOCAL_APP_PORT_NEST02}"
+      - "${LOCAL_APP_PORT_EXPR02}:${APP_PORT_EXPR02}"
     volumes:
-      - ./app/${APP_NAME_NEST02}:/home/app/${APP_NAME_NEST02}
+      - ./app/${APP_NAME_EXPR02}:/home/app/${APP_NAME_EXPR02}
       - ./docker/nodejs/init.sh:/home/init.sh
     networks:
-      - nestjsnetwork
+      - exprjsnetwork
 
-    # Repeat nests as needed
+    # Repeat exprs as needed
     # Also add other services at will
   
 networks:
-  nestjsnetwork:
+  exprjsnetwork:
