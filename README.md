@@ -1,4 +1,4 @@
-# dockernestdevelopment
+# dockerexpressdevelopment
 
 This is a simple docker setup for ExpressJS development. Its purpose is to be used as a project template to :
 
