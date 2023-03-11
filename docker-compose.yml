@@ -7,7 +7,7 @@ services:
     environment:
       # this is needed in the init.sh script
       - APP_NAME=${APP_NAME_EXPR01}
-      - APP_PORT=${LOCAL_APP_PORT_EXPR01}
+      - APP_PORT=${APP_PORT_EXPR01}
     build:
       context: .
       args:
@@ -29,7 +29,7 @@ services:
     env_file: ./docker/env/expr02.env
     environment:
       - APP_NAME=${APP_NAME_EXPR02}
-      - APP_PORT=${LOCAL_APP_PORT_EXPR02}
+      - APP_PORT=${APP_PORT_EXPR01}
     build:
       context: .
       args:

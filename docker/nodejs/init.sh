@@ -12,7 +12,7 @@ init_express() {
 # installs ts
 init_ts() {
     npm i -D typescript @types/express @types/node
-    npx tsc --init
+    npx tsc --init --outDir ./dist
     npm install -D concurrently nodemon
 }
 
@@ -29,14 +29,19 @@ init_scripts_section() {
     node << __SCRIPT
     const fs = require('fs');
     const filename = './package.json';
-    let pck = JSON.parse(fs.readFileSync(filename, 'utf8'))
+    let pck = JSON.parse(fs.readFileSync(filename, 'utf8'));
+    pck.main = "./dist/index.js";
     pck.scripts.build = "npx tsc";
     pck.scripts.start = "node ./dist/index.js";
-    pck.scripts.dev   = "concurrently \"npx tsc --watch\" \"nodemon -q .dist/index.js\"";
+    pck.scripts.dev   = "concurrently \"npx tsc --watch\" \"nodemon -q ./dist/index.js\"";
     pck.scripts.test  = "jest";
 
     fs.writeFileSync(filename, JSON.stringify(pck, null, 2));
 __SCRIPT
+}
+
+create_index(){
+    touch index.ts 
 }
 
 # initializes the app 
@@ -47,6 +52,7 @@ if [ ! -e ./$APP_NAME/package.json ]; then
     init_ts
     init_jest
     init_scripts_section
+    create_index
 else
     cd $APP_NAME
     npm install
